@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>VIA IDA</title>
+		<meta name="description" content="Animating SVG text on a path on scroll using the Intersection Observer API and SVG filters.">
+		<meta name="keywords" content="svg text, animation, scroll, svg filter, Intersection Observer">
+		<meta name="author" content="Codrops">
+		<link rel="shortcut icon" href="favicon.2e5f6236.ico">
+		<link rel="stylesheet" href="https://use.typekit.net/rhw1vur.css">
+		<link rel="stylesheet" type="text/css" href="base.0b18b771.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+		<script>document.documentElement.className = "js";
+
+var supportsCssVars = function supportsCssVars() {
+  var e,
+      t = document.createElement("style");
+  return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e;
+};
+
+supportsCssVars() || alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
+		<!--script src="//tympanus.net/codrops/adpacks/analytics.js"></script-->
+	</head>
+	<body class="loading">
+		<svg class="hidden">
+			<defs>
+				<filter id="blur" x="-30%" y="-30%" width="160%" height="160%">
+					<feGaussianBlur stdDeviation="0" result="blur" data-min-deviation="0" data-max-deviation="10"></feGaussianBlur>
+					<feMerge>
+						<feMergeNode in="blur"></feMergeNode>
+					</feMerge>
+				</filter>
+				<filter id="blur2" x="-30%" y="-30%" width="160%" height="160%">
+					<feGaussianBlur in="SourceAlpha" stdDeviation="0" result="glow" data-min-deviation="0" data-max-deviation="30"></feGaussianBlur>
+					<feColorMatrix result="bluralpha" type="matrix" values="0 -1 0 0 0 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1.8 0 "></feColorMatrix>
+					<feOffset in="bluralpha" dx="0.000000" dy="0.000000" result="offsetBlur"></feOffset>
+					<feMerge>
+						<feMergeNode in="offsetBlur"></feMergeNode>
+						<feMergeNode in="SourceGraphic"></feMergeNode>
+					</feMerge>
+				</filter>
+				<filter id="distortionFilter">
+					<feTurbulence type="fractalNoise" baseFrequency="0.01 0.03" numOctaves="2" seed="2" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="noise"></feTurbulence>
+					<feDisplacementMap in="SourceGraphic" in2="noise" scale="0" data-min-scale="0" data-max-scale="100" xChannelSelector="R" yChannelSelector="B" x="0%" y="0%" width="100%" height="100%" filterUnits="userSpaceOnUse"></feDisplacementMap>
+				</filter>
+				<filter id="distortionFilter2">
+					<feGaussianBlur stdDeviation="10" result="glow"></feGaussianBlur>
+					<feTurbulence type="fractalNoise" baseFrequency="0 0.1" numOctaves="2" seed="2" stitchTiles="noStitch" x="-30%" y="-30%" width="160%" height="160%" result="noise"></feTurbulence>
+					<feDisplacementMap in="SourceGraphic" in2="noise" scale="0" data-min-scale="0" data-max-scale="50" xChannelSelector="R" yChannelSelector="B" x="-30%" y="-30%" width="160%" height="160%" filterUnits="userSpaceOnUse" result="displacement"></feDisplacementMap>
+					<feMerge>
+						<feMergeNode in="glow"></feMergeNode>
+						<feMergeNode in="displacement"></feMergeNode>
+					</feMerge>
+				</filter>
+			</defs>
+		</svg>
+		<main>
+			<!-- <div class="frame frame--screen">
+				<div class="frame__title-wrap">
+					<h1 class="frame__title">Animating SVG Text on a Path</h1>
+					<div class="frame__links">
+						<a href="https://tympanus.net/Development/AudioBasedImageDistortion/">Previous Demo</a>
+						<a href="https://tympanus.net/codrops/?p=47831">Article</a>
+						<a href="https://github.com/codrops/AnimateSVGTextPathScroll/">GitHub</a>
+					</div>
+				</div>
+				<h2 class="frame__heading">A NOVA space project</h2>
+				<div class="frame__counter">
+					<span class="frame__counter-number">06</span>
+					<span class="frame__counter-text">months</span>
+					<span class="frame__counter-number">04</span>
+					<span class="frame__counter-text">days left</span>
+				</div>
+				<nav class="frame__links frame__links--header">
+					<a href="#">Updates</a>
+					<a href="#">About</a>
+					<a href="#">Careers</a>
+				</nav>
+			</div> -->
+			<header class="intro">
+				<h1 class="intro__title">VIA IDA</h1>
+				<p class="intro__hint">The Process</p>
+			</header>
+
+			<h1 style="text-align: center; font-size: 7vh; padding-top: 1em;">STEPS WE GO </h1>
+
+			<div class="grid" style="margin-bottom: 0;">
+				<div class="grid__item">
+					<span class="grid__item-number">DAS ERST- <br> GESPRÄCH</span>
+					
+					<!-- <img class="grid__item-img" src="https://via.placeholder.com/500x800" alt="Some image"> -->
+					<!-- <h3 class="grid__item-title"  style="text-align: right;">VALUE IMAGE ART</h3> -->
+					<p class="grid__item-description" style="text-align: right;">Was erhoffst du dir? Wie kann ich dich unterstützen?
+                        Wir hören I sehen uns via Telefon oder Zoom Call.
+                        Dauer 30 – 45 Minuten. Kosten keine. 
+                        Damit ich mich vorbereiten kann, erhältst du vorab einen kurzen Fragebogen.
+                        
+						</p>
+				</div>
+				<div class="grid__item">
+					<span class="grid__item-number" style="text-align: left;">WAS?</span>
+					<img class="grid__item-img" src="https://via.placeholder.com/200x200" alt="Some image">
+					<!-- <img class="grid__item-img" src="https://via.placeholder.com/500x800" alt="Some image">
+					<h3 class="grid__item-title" style="text-align: left;">IDENTITY DIVERSITY ART</h3> -->
+					<p class="grid__item-description" style="text-align: left;">Die Klärungsphase dient der Orientierung. Was bewegt dich? Was ist dein Thema? Was ist dein Wunsch? </p>
+				</div>
+
+
+			</div>
+
+            <div class="grid" style="margin: 0;">
+				<div class="grid__item">
+					<span class="grid__item-number">WANN? <br> WO? <br> WIE?</span>
+					<img class="grid__item-img" src="https://via.placeholder.com/200x200" alt="Some image">
+					<!-- <img class="grid__item-img" src="https://via.placeholder.com/500x800" alt="Some image"> -->
+					<!-- <h3 class="grid__item-title"  style="text-align: right;">VALUE IMAGE ART</h3> -->
+					<p class="grid__item-description" style="text-align: right;">Mechanismen und Zusammenhänge werde erkennbar: Welche Werte, Muster, Rollen, Emotionen beeinflussen dein Thema. Wir decken auf, wann sie wo, wie wirksam sind.
+                        
+						</p>
+				</div>
+				<div class="grid__item">
+					<span class="grid__item-number" style="text-align: left;">ICH. <br> DU. <br> WIR.</span>
+					<img class="grid__item-img" src="https://via.placeholder.com/200x200" alt="Some image">
+					<!-- <img class="grid__item-img" src="https://via.placeholder.com/500x800" alt="Some image">
+					<h3 class="grid__item-title" style="text-align: left;">IDENTITY DIVERSITY ART</h3> -->
+					<p class="grid__item-description" style="text-align: left;">Deine innere Welt im Kontext mit deiner Lebenswelt. Eine differenzierte Betrachtung mit stimmiger Übersetzung für deine jeweilige Situation, ist das Ziel. </p>
+				</div>
+
+
+			</div>
+
+            <div class="grid" style="margin: 0;">
+				<div class="grid__item" >
+					<span class="grid__item-number">NEUE IDEEN</span>
+					<img class="grid__item-img" src="https://via.placeholder.com/200x200" alt="Some image">
+					<!-- <h3 class="grid__item-title"  style="text-align: right;">VALUE IMAGE ART</h3> -->
+					<p class="grid__item-description" style="text-align: right;">Du nimmst andere Perspektiven ein, erkennst neue Facetten und Möglichkeiten. Du entwickelst konkrete Handlungsziele.
+                        
+						</p>
+				</div>
+				<div class="grid__item">
+					<span class="grid__item-number" style="text-align: left;">NEUE KRAFT</span>
+					<img class="grid__item-img" src="https://via.placeholder.com/200x200" alt="Some image">
+					<!-- <h3 class="grid__item-title" style="text-align: left;">IDENTITY DIVERSITY ART</h3> -->
+					<p class="grid__item-description" style="text-align: left;">Schritt für Schritt kommst du deinen Wahrheiten,  Wünschen und Träumen näher, innere Kräfte entfalten sich. </p>
+				</div>
+
+
+			</div>
+			<h1 style="text-align: center; font-size: 7vh; padding-top: 1em; margin:0;">THE CLOTHING</h1>
+
+			<div class="bigimg" style="margin-top: 3em;">
+
+			
+					<p class="grid__item-description">Die Kleider können an jeder Phase eingebunden werden. <br> Vieles kann. <br> Nichts muss.
+
+						<img class="bigimg" style="margin-top: 2em;" src="https://via.placeholder.com/500x800" alt="Some image">
+						
+						</p>
+										
+				</div>
+
+				<h1 style="text-align: center; font-size: 7vh; padding-top: 1em; margin:0;">THE VALUE OF CHANGE</h1>
+				<div class="bigimg" style="margin-top: 3em;">
+
+			
+					<p class="grid__item-description" style="text-align: right;">You love, what you do. <br>
+						You do, what you love.
+						
+
+						<img class="bigimg" style="margin-top: 2em;" src="https://via.placeholder.com/500x800" alt="Some image">
+						
+						</p>
+										
+				</div>
+
+
+				<div class="grid">
+					<div class="grid__item">
+						<span class="grid__item-number">Manches endlich einmal auszusprechen, schafft bereits Klarheit.</span>
+						
+					</div>
+					<div class="grid__item">
+						<span class="grid__item-number" style="text-align: left;">Buche deine kostenloses Erstgespräch!</span>
+					
+					</div>
+				</div>
+
+
+			<footer class="frame">
+				<div class="frame__links">
+					<h1 class="intro__title">VIA IDA</h1>
+					<!-- <a href="#">VIA IDA</a> -->
+					<!-- <a href="https://tympanus.net/codrops/?p=47831">Article</a>
+					<a href="https://github.com/codrops/AnimateSVGTextPath/">GitHub</a> -->
+				</div>
+			</footer>
+		</main>
+		<!--script src="https://tympanus.net/codrops/adpacks/demoad.js"></script-->
+		<script src="js.c39dff1f.js"></script>
+	</body>
+</html>
